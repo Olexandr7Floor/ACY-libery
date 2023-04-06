@@ -1,0 +1,43 @@
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout
+
+class LoginWindow(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("AСУ Libery")
+        self.resize(300, 150)
+
+        # Віджети
+        self.label_username = QLabel("Логін:", self)
+        self.label_password = QLabel("Пароль:", self)
+        self.edit_username = QLineEdit(self)
+        self.edit_password = QLineEdit(self)
+        self.edit_password.setEchoMode(QLineEdit.Password)
+        self.button_login = QPushButton("Вхід", self)
+
+        # Розміщення віджетів на вікні
+        layout = QVBoxLayout(self)
+        layout.addWidget(self.label_username)
+        layout.addWidget(self.edit_username)
+        layout.addWidget(self.label_password)
+        layout.addWidget(self.edit_password)
+        layout.addWidget(self.button_login)
+
+        # Підключення слоту для натискання кнопки вхід
+        self.button_login.clicked.connect(self.login)
+
+    def login(self):
+        # Отримання логіну та паролю з віджетів
+        username = self.edit_username.text()
+        password = self.edit_password.text()
+
+        # Перевірка логіну та паролю
+        if username == "admin" and password == "admin":
+            print("Авторизація пройшла успішно")
+        else:
+            print("Невірний логін або пароль")
+
+if __name__ == "__main__":
+    app = QApplication([])
+    window = LoginWindow()
+    window.show()
+    app.exec_()
